@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Trip;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -13,9 +15,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cities', function (Blueprint $table) {
+        Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('name',60)->index();
+            $table->foreignIdFor(Trip::class,'trip_id');
+            $table->foreignIdFor(User::class,'user_id');
+            $table->unsignedDecimal('number_of_spots');
+            $table->decimal('ticket_total');
             $table->timestamps();
         });
     }
@@ -27,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('tickets');
     }
 };
