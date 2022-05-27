@@ -20,7 +20,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Trip::class,'trip_id');
             $table->foreignIdFor(Ticket::class,'ticket_id')->nullable();
-            $table->unsignedDecimal('spot_number');
+            $table->unsignedInteger('spot_number');
             $table->enum('status',Spot::STATUSES);
             $table->unique(['trip_id','spot_number']);
             $table->timestamps();
