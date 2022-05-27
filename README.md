@@ -1,6 +1,6 @@
 Simple Booking System
 
-this project uses Lumen framwework for steps to install please check https://lumen.laravel.com/docs/9.x 
+this project uses Lumen framwework for steps to install please check[ https://lumen.laravel.com/docs/9.x ](https://lumen.laravel.com/docs/9.x/installation)
 
 database design : 
 file:///home/hossam/Downloads/Untitled%20Diagram.drawio.png 
