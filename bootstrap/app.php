@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 // $app->withEloquent();
 
@@ -93,8 +93,9 @@ $app->configure('app');
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
-
+ $app->register(App\Providers\EventServiceProvider::class);
+ $app->register(Illuminate\Redis\RedisServiceProvider::class);
+ $app->configure('database');
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -105,6 +106,7 @@ $app->configure('app');
 | can respond to, as well as the controllers that may handle them.
 |
 */
+app('db');
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
