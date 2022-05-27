@@ -16,4 +16,18 @@ class Trip extends Model
         self::BOOKED
     ];
     protected $fillable=['remaining_seats','price'];
+
+    public function spots(){
+        return $this->hasMany(Spot::class);
+    }
+
+    public function from()
+    {
+        return $this->belongsTo(City::class,'from_city_id');
+    }
+
+    public function to()
+    {
+        return $this->belongsTo(City::class,'to_city_id');
+    }
 }

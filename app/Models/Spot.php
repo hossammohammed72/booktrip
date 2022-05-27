@@ -12,6 +12,21 @@ class Spot extends Model
     self::FREE,
     self::RESERVED
   ];
-
+  /**
+   * Undocumented function
+   *
+   * @return void
+   */
+  public function ticket(){
+    return $this->belongsTo(Ticket::class);
+  }
+  /**
+   * Undocumented function
+   *
+   * @return void
+   */
+  public function trip(){
+    return $this->belongsTo(Trip::class);
+  }
     
 }
