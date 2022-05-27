@@ -18,7 +18,8 @@ class CreateTripService{
         $trip->derpature_time = $request->derpartureTime;
         $trip->arrival_time = $request->arrivalTime;
         $trip->save();
-        event(new TripCreatedEvent($trip));   
+        event(new TripCreatedEvent($trip));  
+        return $trip; 
     }
 }
 

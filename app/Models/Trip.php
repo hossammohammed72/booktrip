@@ -30,4 +30,9 @@ class Trip extends Model
     {
         return $this->belongsTo(City::class,'to_city_id');
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }

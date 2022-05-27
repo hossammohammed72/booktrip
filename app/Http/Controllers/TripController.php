@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ticket;
+use App\Models\Trip;
 use App\Requests\RequestFactory;
 use App\Services\CreateTripService;
 use App\Services\CreateUserIfNotExists;
@@ -39,9 +41,9 @@ class TripController extends Controller
                 'arrival_time'=>'required|after:derparture_time'
             ]);
             
-            $createTrip = new CreateTripService(RequestFactory::createRequest('trip',$request));
+            $trip = new CreateTripService(RequestFactory::createRequest('trip',$request));
             
-            return response()->json(['message'=>'trip created Sucessfullly',201]);
+            return response()->json(['message'=>'trip created Sucessfullly','trip'=>$trip,201]);
          
         }catch(ValidationException $e){
             Log::alert("validation exception");
@@ -49,6 +51,19 @@ class TripController extends Controller
          
         }
         
+    }
+
+    public function showTickets($tripId)
+    {
+        return response()->json(Trip::with('tickets','tickets.user')->where('id',$tripId)->get()->toArray(),200);
+        
+        # code...
+    }
+
+    public function showUsers($tripId)
+    {
+        return response()->json(app('db')->table("tickets")->join('users','user_id','users.id')->where('trip_id',$tripId)->groupBy('user_id')->selectRaw('sum(number_of_spots) as total_spots,users.email,users.name')->get(),200);
+        # code...
     }
 
     //
