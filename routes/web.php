@@ -2,6 +2,7 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -13,6 +14,10 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->get('/cities',['as'=>'cities.index','uses'=>'CityController@index']);
+
+$router->post('/trip',['as'=>'trip.store','uses'=>'TripController@store']);
+$router->get('/trip/{id}',['as'=>'trip.show','uses'=>'TripController@show']);
+
+$router->post('/ticket/book',['as'=>'trip.book','uses'=>'BookingController@book']);
+$router->post('/ticket/cancel',['as'=>'trip.book','uses'=>'BookingController@cancel']);
