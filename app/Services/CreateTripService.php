@@ -7,7 +7,7 @@ use App\Models\Trip;
 use App\Requests\TripRequest;
 
 class CreateTripService{
-    public function __construct(TripRequest $request)
+    public static function create(TripRequest $request)
     {
         $trip = new Trip();
         $trip->number_of_seats=$request->numberOfSeats;

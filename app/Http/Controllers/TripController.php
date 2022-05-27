@@ -41,7 +41,7 @@ class TripController extends Controller
                 'arrival_time'=>'required|after:derparture_time'
             ]);
             
-            $trip = new CreateTripService(RequestFactory::createRequest('trip',$request));
+            $trip = CreateTripService::create(RequestFactory::createRequest('trip',$request));
             
             return response()->json(['message'=>'trip created Sucessfullly','trip'=>$trip,201]);
          

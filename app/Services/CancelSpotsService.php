@@ -11,9 +11,9 @@ use App\Requests\CancelSpotsRequest;
 use App\Requests\TripRequest;
 
 class CancelSpotsService{
-    public function __construct(CancelSpotsRequest $request)
+    public static function cancel(CancelSpotsRequest $request)
     {
-         app('db')->transaction(function()use($request){
+         return app('db')->transaction(function()use($request){
             $ticket = $request->ticket;
             $ticket->lockForUpdate();
             Spot::where('ticket_id',$ticket->id)
@@ -28,6 +28,7 @@ class CancelSpotsService{
             $trip->update();
             $ticket->number_of_spots = $ticket->number_of_spots-$request->numberOfSeats;
             $ticket->save();
+            return $ticket;
          });
     }
 }

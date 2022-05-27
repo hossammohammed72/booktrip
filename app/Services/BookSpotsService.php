@@ -10,11 +10,11 @@ use App\Requests\BookingSpotsRequest;
 use App\Requests\TripRequest;
 
 class BookSpotsService{
-    public function __construct(BookingSpotsRequest $request)
+    public static function book(BookingSpotsRequest $request)
     {
-         app('db')->transaction(function()use($request){
+         return app('db')->transaction(function()use($request){
             $trip = $request->trip;
-            $trip->lockForUpdate();
+            $trip->lock();
             $ticket = new Ticket([
                 'number_of_spots'=>$request->numberOfSeats,
                 'user_id'=>$request->userId,
@@ -32,6 +32,7 @@ class BookSpotsService{
             );
             $trip->remaining_seats = $trip->remaining_seats-$request->numberOfSeats;
             $trip->update();
+            return $trip;
          });
     }
 }

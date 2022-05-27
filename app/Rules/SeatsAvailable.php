@@ -13,7 +13,7 @@ class SeatsAvailable implements ImplicitRule{
      */
     public function passes($attribute, $value)
     {
-        return $value <= Trip::find(request()->get('trip_id'))->remaining_seats;
+        return $value <= Trip::findorFail(request()->get('trip_id'))->remaining_seats;
     }
 
     /**

@@ -28,15 +28,17 @@ class BookingController extends Controller
     public function book(Request $request)
     {
         $this->validate($request,[
-            'number_of_seats'=>['required','numeric','gt:0',new SeatsAvailable],
+
             'trip_id'=>['required',Rule::exists('trips','id')->where('status',Trip::OPEN)],
+            'number_of_seats'=>['required','numeric','gt:0',new SeatsAvailable],
             'email'=>['required','email'],
             'name'=>['required']
         ]);
         $user = CreateUserIfNotExists::getUserOrCreateIfNotExists(RequestFactory::createRequest('user',$request));
         $request->user_id = $user->id;
-        $bookSpot = new BookSpotsService(RequestFactory::createRequest('spot',$request));
+        $ticket = BookSpotsService::book(RequestFactory::createRequest('spot',$request));
 
+        return response()->json(['message'=>'ticket created Sucessfullly','ticket'=>$ticket,201]);
 
         # code...
     }
@@ -47,7 +49,9 @@ class BookingController extends Controller
             'ticket_id'=>['required','exists:tickets,id'],
             'spots_to_cancel'=>['required','numeric',new CancellableSpots]
         ]);
-        $cancelSpot = new CancelSpotsService(RequestFactory::createRequest('ticket',$request));
+        $ticket = CancelSpotsService::cancel(RequestFactory::createRequest('ticket',$request));
+        return response()->json(['message'=>'spots cancelled Sucessfullly','ticket'=>$ticket,'number_of_cancelled_spots'=>$request->spots_to_cancel,201]);
+
         # code...
     }
 

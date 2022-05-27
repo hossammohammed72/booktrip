@@ -14,7 +14,7 @@ class CancellableSpots implements ImplicitRule{
      */
     public function passes($attribute, $value)
     {
-        return $value <= Ticket::find(request()->get('ticket_id'))->number_of_spots;
+        return $value <= Ticket::findOrFail(request()->get('ticket_id'))->number_of_spots;
     }
 
     /**
