@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Spot extends Model 
 {
-    const STATUSES = [
-      'free',
-      'reserved',  
-    ];
+  const FREE='free';
+  const RESERVED='reserved';
+  const STATUSES = [
+    self::FREE,
+    self::RESERVED
+  ];
 
     
 }
