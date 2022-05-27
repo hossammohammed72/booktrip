@@ -43,7 +43,7 @@ class TripController extends Controller
             
             $trip = CreateTripService::create(RequestFactory::createRequest('trip',$request));
             
-            return response()->json(['message'=>'trip created Sucessfullly','trip'=>$trip,201]);
+            return response()->json(['message'=>'trip created Sucessfullly','trip'=>$trip],201);
          
         }catch(ValidationException $e){
             Log::alert("validation exception");

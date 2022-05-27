@@ -1,0 +1,145 @@
+<?php
+
+namespace Tests;
+
+use App\Models\City;
+use Laravel\Lumen\Testing\DatabaseMigrations;
+use Laravel\Lumen\Testing\DatabaseTransactions;
+
+class TripCreationTest extends TestCase
+{
+    public function createTrip()
+    {
+        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $derpartureTime = time()+3600;
+        $arrivalTime = $derpartureTime+12000;
+        return $this->post('/trips',[
+            'number_of_seats'=>15,
+            'from'=>$cities[0]['name'],
+            'to'=>$cities[1]['name'],
+            'price'=>10.2,
+            'derparture_time'=>date('d-m-y h:m',$derpartureTime),
+            'arrival_time'=>date('d-m-y h:m',$arrivalTime)
+             /* adding two minutes buffer*/ 
+        ]);
+        # code...
+    }
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function test_that_base_trip_creation_returns_successful_response()
+    {
+        $this->createTrip();
+        $this->assertResponseStatus(201);
+    }
+
+     /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function test_that_base_trip_creation_returns_failure_for_negative_seats_number_response()
+    {
+        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $derpartureTime = time()+3600;
+        $arrivalTime = $derpartureTime+12000;
+        $this->post('/trips',[
+            'number_of_seats'=>-15,
+            'from'=>$cities[0]['name'],
+            'to'=>$cities[1]['name'],
+            'price'=>10.2,
+            'derparture_time'=>date('d-m-y h:m',$derpartureTime),
+            'arrival_time'=>date('d-m-y h:m',$arrivalTime)
+             /* adding two minutes buffer*/ 
+        ]);
+        $this->assertResponseStatus(422);
+    }
+
+        /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function test_that_base_trip_creation_returns_failure_for_negative_price_response()
+    {
+        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $derpartureTime = time()+3600;
+        $arrivalTime = $derpartureTime+12000;
+        $this->post('/trips',[
+            'number_of_seats'=>15,
+            'from'=>$cities[0]['name'],
+            'to'=>$cities[1]['name'],
+            'price'=>-10.2,
+            'derparture_time'=>date('d-m-y h:m',$derpartureTime),
+            'arrival_time'=>date('d-m-y h:m',$arrivalTime)
+             /* adding two minutes buffer*/ 
+        ]);
+        $this->assertResponseStatus(422);
+    }
+ /**
+     * test_that_base_trip_creation_returns_failure_for_same_city_in_from_and_to_response
+     *
+     * @return void
+     */
+    public function test_that_base_trip_creation_returns_failure_for_same_city_in_from_and_to_response()
+    {
+        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $derpartureTime = time()+3600;
+        $arrivalTime = $derpartureTime+12000;
+        $this->post('/trips',[
+            'number_of_seats'=>-15,
+            'from'=>'blabab',
+            'to'=>$cities[1]['name'],
+            'price'=>10.2,
+            'derparture_time'=>date('d-m-y h:m',$derpartureTime),
+            'arrival_time'=>date('d-m-y h:m',$arrivalTime)
+             /* adding two minutes buffer*/ 
+        ]);
+        $this->assertResponseStatus(422);
+    }
+    /**
+     * test_that_base_trip_creation_returns_failure_for_same_city_in_from_and_to_response
+     *
+     * @return void
+     */
+    public function test_that_base_trip_creation_returns_failure_for_invalid_cities_in_from_number_response()
+    {
+        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $derpartureTime = time()+3600;
+        $arrivalTime = $derpartureTime+12000;
+        $this->post('/trips',[
+            'number_of_seats'=>-15,
+            'from'=>'blabab',
+            'to'=>$cities[1]['name'],
+            'price'=>10.2,
+            'derparture_time'=>date('d-m-y h:m',$derpartureTime),
+            'arrival_time'=>date('d-m-y h:m',$arrivalTime)
+             /* adding two minutes buffer*/ 
+        ]);
+        $this->assertResponseStatus(422);
+    }
+    /**
+     * test_that_base_trip_creation_returns_failure_for_same_city_in_from_and_to_response
+     *
+     * @return void
+     */
+    public function test_that_base_trip_creation_returns_failure_for_invalid_cities_in_to_number_response()
+    {
+        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $derpartureTime = time()+3600;
+        $arrivalTime = $derpartureTime+12000;
+        $this->post('/trips',[
+            'number_of_seats'=>-15,
+            'from'=>$cities[1]['name'],
+            'to'=>'sfsdfsfs',
+            'price'=>10.2,
+            'derparture_time'=>date('d-m-y h:m',$derpartureTime),
+            'arrival_time'=>date('d-m-y h:m',$arrivalTime)
+             /* adding two minutes buffer*/ 
+        ]);
+        $this->assertResponseStatus(422);
+    }
+    
+}

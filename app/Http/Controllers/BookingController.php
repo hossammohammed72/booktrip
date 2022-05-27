@@ -38,7 +38,7 @@ class BookingController extends Controller
         $request->user_id = $user->id;
         $ticket = BookSpotsService::book(RequestFactory::createRequest('spot',$request));
 
-        return response()->json(['message'=>'ticket created Sucessfullly','ticket'=>$ticket,201]);
+        return response()->json(['message'=>'ticket created Sucessfullly','ticket'=>$ticket],201);
 
         # code...
     }
@@ -50,7 +50,7 @@ class BookingController extends Controller
             'spots_to_cancel'=>['required','numeric',new CancellableSpots]
         ]);
         $ticket = CancelSpotsService::cancel(RequestFactory::createRequest('ticket',$request));
-        return response()->json(['message'=>'spots cancelled Sucessfullly','ticket'=>$ticket,'number_of_cancelled_spots'=>$request->spots_to_cancel,201]);
+        return response()->json(['message'=>'spots cancelled Sucessfullly','ticket'=>$ticket,'number_of_cancelled_spots'=>$request->spots_to_cancel],201);
 
         # code...
     }
