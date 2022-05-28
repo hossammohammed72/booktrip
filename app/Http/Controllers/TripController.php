@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ticket;
 use App\Models\Trip;
 use App\Requests\RequestFactory;
 use App\Services\CreateTripService;
-use App\Services\CreateUserIfNotExists;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

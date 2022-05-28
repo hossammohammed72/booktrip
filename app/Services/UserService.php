@@ -3,8 +3,8 @@ namespace App\Services;
 
 use App\Requests\UserRequest;
 use App\Models\User;
-class CreateUserIfNotExists{
-    public static function getUserOrCreateIfNotExists(UserRequest $request): User
+class UserService{
+    public static function getOrCreate(UserRequest $request): User
     {
         $user = User::where('email',$request->email)->first();
         if(is_null($user)){

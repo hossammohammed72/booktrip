@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Trip;
-use App\Requests\CancelSpotsRequest;
 use App\Requests\RequestFactory;
 use App\Rules\CancellableSpots;
 use App\Rules\SeatsAvailable;
 use App\Services\BookSpotsService;
-use App\Services\CancelSpotsService;
-use App\Services\CreateUserIfNotExists;
+use App\Services\SpotsService;
+use App\Services\UserService;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
@@ -34,9 +33,9 @@ class BookingController extends Controller
             'email'=>['required','email'],
             'name'=>['required']
         ]);
-        $user = CreateUserIfNotExists::getUserOrCreateIfNotExists(RequestFactory::createRequest('user',$request));
+        $user = UserService::getOrCreate(RequestFactory::createRequest('user',$request));
         $request->user_id = $user->id;
-        $ticket = BookSpotsService::book(RequestFactory::createRequest('spot',$request));
+        $ticket = SpotsService::book(RequestFactory::createRequest('spot',$request));
 
         return response()->json(['message'=>'ticket created Sucessfullly','ticket'=>$ticket],201);
 
@@ -49,7 +48,7 @@ class BookingController extends Controller
             'ticket_id'=>['required','exists:tickets,id'],
             'spots_to_cancel'=>['required','numeric',new CancellableSpots]
         ]);
-        $ticket = CancelSpotsService::cancel(RequestFactory::createRequest('ticket',$request));
+        $ticket = SpotsService::cancel(RequestFactory::createRequest('ticket',$request));
         return response()->json(['message'=>'spots cancelled Sucessfullly','ticket'=>$ticket,'number_of_cancelled_spots'=>$request->spots_to_cancel],201);
 
         # code...
