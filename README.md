@@ -10,11 +10,13 @@ this project uses Lumen framwework for docs please check[ https://lumen.laravel.
 php artisan key:generate </li>
 to generate your key</li>
 <li> instal dependecies through</li>
-composer update</li>
-composer dump-autoload</li>
+```composer update```
+```composer dump-autoload```
 <li> create a database with the same name in the .env file</li>
 <li> run database migration and seeds </li>
-php artisan migrate --seed</li>
+```php artisan migrate --seed```
+<li> serve the api </li>
+```php -S localhost:8000 -t public```
 
 database design : 
 
