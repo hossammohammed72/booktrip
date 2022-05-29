@@ -3,14 +3,26 @@
 namespace Tests;
 
 use App\Models\City;
+use Database\Factories\CityFactory;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class TripCreationTest extends TestCase
 {
-    public function createTrip()
+    use DatabaseMigrations;
+    /**
+     * Undocumented function
+     *
+     * @param [int] $count
+     * @return array
+     */
+    private function makeCities(int $count): array{
+        return City::factory()->count($count)->create()->toArray();
+       
+    }
+    private function createTrip()
     {
-        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $cities = $this->makeCities(2);
         $derpartureTime = time()+3600;
         $arrivalTime = $derpartureTime+12000;
         return $this->post('/trips',[
@@ -42,7 +54,7 @@ class TripCreationTest extends TestCase
      */
     public function test_that_base_trip_creation_returns_failure_for_negative_seats_number_response()
     {
-        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $cities = $cities = $this->makeCities(2);
         $derpartureTime = time()+3600;
         $arrivalTime = $derpartureTime+12000;
         $this->post('/trips',[
@@ -64,7 +76,7 @@ class TripCreationTest extends TestCase
      */
     public function test_that_base_trip_creation_returns_failure_for_negative_price_response()
     {
-        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $cities = $cities = $this->makeCities(2);
         $derpartureTime = time()+3600;
         $arrivalTime = $derpartureTime+12000;
         $this->post('/trips',[
@@ -85,7 +97,7 @@ class TripCreationTest extends TestCase
      */
     public function test_that_base_trip_creation_returns_failure_for_same_city_in_from_and_to_response()
     {
-        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $cities = $cities = $this->makeCities(2);
         $derpartureTime = time()+3600;
         $arrivalTime = $derpartureTime+12000;
         $this->post('/trips',[
@@ -106,7 +118,7 @@ class TripCreationTest extends TestCase
      */
     public function test_that_base_trip_creation_returns_failure_for_invalid_cities_in_from_number_response()
     {
-        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $cities = $this->makeCities(2);
         $derpartureTime = time()+3600;
         $arrivalTime = $derpartureTime+12000;
         $this->post('/trips',[
@@ -127,7 +139,7 @@ class TripCreationTest extends TestCase
      */
     public function test_that_base_trip_creation_returns_failure_for_invalid_cities_in_to_number_response()
     {
-        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $cities = $cities = $this->makeCities(2);
         $derpartureTime = time()+3600;
         $arrivalTime = $derpartureTime+12000;
         $this->post('/trips',[

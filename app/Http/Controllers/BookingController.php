@@ -49,7 +49,7 @@ class BookingController extends Controller
             'spots_to_cancel'=>['required','numeric',new CancellableSpots]
         ]);
         $ticket = SpotsService::cancel(RequestFactory::createRequest('ticket',$request));
-        return response()->json(['message'=>'spots cancelled Sucessfullly','ticket'=>$ticket,'number_of_cancelled_spots'=>$request->spots_to_cancel],201);
+        return response()->json(['message'=>'spots cancelled Sucessfullly','ticket'=>$ticket,'number_of_cancelled_spots'=>$request->spots_to_cancel],200);
 
         # code...
     }

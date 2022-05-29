@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Spot extends Model 
 {
+  use HasFactory;
   const FREE='free';
   const RESERVED='reserved';
   const STATUSES = [

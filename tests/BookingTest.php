@@ -4,15 +4,16 @@ namespace Tests;
 
 use App\Models\City;
 use App\Models\Trip;
+use Database\Factories\CityFactory;
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class BookingTest extends TestCase
 {
+    use DatabaseMigrations;
 
     public function createTrip()
     {
-        $cities = City::inRandomOrder()->limit(2)->get()->toArray();
+        $cities = City::factory()->count(2)->create()->toArray();
         $derpartureTime = time()+3600;
         $arrivalTime = $derpartureTime+12000;
         return $this->post('/trips',[
@@ -35,14 +36,31 @@ class BookingTest extends TestCase
     public function test_that_base__booking_trip_returns_successful_response()
     {
         $tripId= $this->createTrip()->response->json()['trip']['id'];
-       
-        $this->post('/ticket/book',[
-            'number_of_seats'=>1,
+        $this->bookTickets(3,$tripId);
+        $this->assertResponseStatus(201);
+    }
+
+    public function test_that_cancel_booking_trip_works_succesfully()
+    {
+        $tripId= $this->createTrip()->response->json()['trip']['id'];
+        $ticketId = $this->bookTickets(4,$tripId)->response->json()['ticket']['id'];
+        $this->post('/ticket/cancel',[
+            'spots_to_cancel'=>2,
+            'ticket_id'=>$ticketId,
+        ]);
+        $this->assertResponseStatus(200);
+
+        # code...
+    }
+
+    private function bookTickets(int $count,int $tripId){
+        
+        return $this->post('/ticket/book',[
+            'number_of_seats'=>$count,
             'trip_id'=>$tripId,
             'name'=>'ahmed',
             'email'=>'baaaal@caaa'
         ]);
-        $this->assertResponseStatus(201);
     }
 
       /**
