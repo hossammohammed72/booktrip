@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Trip;
 use App\Requests\RequestFactory;
 use App\Rules\CancellableSpots;
-use App\Rules\SeatsAvailable;
+use App\Rules\SpotsAvailable;
 use App\Services\BookSpotsService;
 use App\Services\SpotsService;
 use App\Services\UserService;
@@ -29,7 +29,7 @@ class BookingController extends Controller
         $this->validate($request,[
 
             'trip_id'=>['required',Rule::exists('trips','id')->where('status',Trip::OPEN)],
-            'number_of_seats'=>['required','numeric','gt:0',new SeatsAvailable],
+            'number_of_spots'=>['required','numeric','gt:0',new SpotsAvailable],
             'email'=>['required','email'],
             'name'=>['required']
         ]);

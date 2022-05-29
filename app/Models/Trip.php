@@ -17,7 +17,7 @@ class Trip extends Model
         self::OPEN,
         self::BOOKED
     ];
-    protected $fillable=['remaining_seats','price'];
+    protected $fillable=['remaining_spots','price'];
 
     public function spots(){
         return $this->hasMany(Spot::class);

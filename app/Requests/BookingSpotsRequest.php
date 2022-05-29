@@ -7,7 +7,7 @@ use App\Models\User;
 class BookingSpotsRequest{
     
     public function __construct(
-    public int $numberOfSeats,
+    public int $numberOfSpots,
     public Trip $trip,
     public int $userId,
     )

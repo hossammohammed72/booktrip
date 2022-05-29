@@ -19,8 +19,8 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(City::class,'from_city_id');
             $table->foreignIdFor(City::class,'to_city_id');
-            $table->unsignedInteger('number_of_seats');
-            $table->unsignedInteger('remaining_seats');
+            $table->unsignedInteger('number_of_spots');
+            $table->unsignedInteger('remaining_spots');
             $table->double('ticket_price');
             $table->enum('status',Trip::STATUSES)->default(Trip::PENDING);
             $table->timestamp('derpature_time');

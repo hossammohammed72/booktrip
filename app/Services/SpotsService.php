@@ -14,21 +14,21 @@ class SpotsService{
             $trip = $request->trip;
             $trip->lockForUpdate();
             $ticket = new Ticket([
-                'number_of_spots'=>$request->numberOfSeats,
+                'number_of_spots'=>$request->numberOfSpots,
                 'user_id'=>$request->userId,
                 'trip_id'=>$trip->id,
-                'tikcet_total'=>$trip->price*$request->numberOfSeats
+                'tikcet_total'=>$trip->price*$request->numberOfSpots
             ]);
             $ticket->save();
             Spot::where('trip_id',$trip->id)
             ->whereNull('ticket_id')
             ->where('status',Spot::FREE)
-            ->orderBy('spot_number')->offset($trip->number_of_seats-$trip->remaining_seats)->limit($request->numberOfSeats)
+            ->orderBy('spot_number')->offset($trip->number_of_spots-$trip->remaining_spots)->limit($request->numberOfSpots)
             ->lockForUpdate()
             ->update(
                 ['ticket_id'=>$ticket->id,'status'=>Spot::RESERVED]
             );
-            $trip->remaining_seats = $trip->remaining_seats-$request->numberOfSeats;
+            $trip->remaining_spots = $trip->remaining_spots-$request->numberOfSpots;
             $trip->update();
             return $trip;
          });
@@ -41,15 +41,15 @@ class SpotsService{
             $ticket->lockForUpdate();
             Spot::where('ticket_id',$ticket->id)
             ->where('status',Spot::RESERVED)
-            ->orderBy('spot_number','DESC')->limit($request->numberOfSeats)
+            ->orderBy('spot_number','DESC')->limit($request->numberOfSpots)
             ->lockForUpdate()
             ->update(
                 ['ticket_id'=>null,'status'=>Spot::FREE]
             );
             $trip= Trip::find($ticket->trip_id)->lockForUpdate()->first();
-            $trip->remaining_seats = $trip->remaining_seats+$request->numberOfSeats;
+            $trip->remaining_spots = $trip->remaining_spots+$request->numberOfSpots;
             $trip->update();
-            $ticket->number_of_spots = $ticket->number_of_spots-$request->numberOfSeats;
+            $ticket->number_of_spots = $ticket->number_of_spots-$request->numberOfSpots;
             $ticket->save();
             return $ticket;
          });

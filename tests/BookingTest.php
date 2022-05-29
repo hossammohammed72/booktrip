@@ -17,7 +17,7 @@ class BookingTest extends TestCase
         $derpartureTime = time()+3600;
         $arrivalTime = $derpartureTime+12000;
         return $this->post('/trips',[
-            'number_of_seats'=>15,
+            'number_of_spots'=>15,
             'from'=>$cities[0]['name'],
             'to'=>$cities[1]['name'],
             'price'=>10.2,
@@ -56,7 +56,7 @@ class BookingTest extends TestCase
     private function bookTickets(int $count,int $tripId){
         
         return $this->post('/ticket/book',[
-            'number_of_seats'=>$count,
+            'number_of_spots'=>$count,
             'trip_id'=>$tripId,
             'name'=>'ahmed',
             'email'=>'baaaal@caaa'
@@ -68,12 +68,12 @@ class BookingTest extends TestCase
      *
      * @return void
      */
-    public function test_that_base__booking_trip_returns_failure_on_seats_bigeer_than_trip_capacity_response()
+    public function test_that_base__booking_trip_returns_failure_on_spots_bigeer_than_trip_capacity_response()
     {
         $trip= $this->createTrip()->response->json()['trip'];
        
         $this->post('/ticket/book',[
-            'number_of_seats'=>$trip['number_of_seats']+1,
+            'number_of_spots'=>$trip['number_of_spots']+1,
             'trip_id'=>$trip['id'],
             'name'=>'ahmed',
             'email'=>'baaaal@caaa'
@@ -86,12 +86,12 @@ class BookingTest extends TestCase
      *
      * @return void
      */
-    public function test_that_base__booking_trip_returns_failure_on_seats_bigeer_than_trip_available_seats_response()
+    public function test_that_base__booking_trip_returns_failure_on_spots_bigeer_than_trip_available_spots_response()
     {
         $trip= $this->createTrip()->response->json()['trip'];
        
         $this->post('/ticket/book',[
-            'number_of_seats'=>$trip['remaining_seats']+1,
+            'number_of_spots'=>$trip['remaining_spots']+1,
             'trip_id'=>$trip['id'],
             'name'=>'ahmed',
             'email'=>'baaaal@caaa'

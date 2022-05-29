@@ -31,7 +31,7 @@ class TripController extends Controller
     public function store(Request $request):JsonResponse{
         try{
             $this->validate($request,[
-                'number_of_seats'=>'required|numeric|gt:0',
+                'number_of_spots'=>'required|numeric|gt:0',
                 'from'=>'required|exists:cities,name',
                 'to'=>'required|exists:cities,name|not_in:'.($request->from??''),
                 'price'=>'required|numeric|gt:0',

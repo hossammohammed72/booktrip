@@ -19,12 +19,12 @@ class CreateSpotsListener implements ShouldQueue
      */
     public static function handle(TripCreatedEvent $event)
     {
-         $numberOfSeatsInTrip = $event->trip->number_of_seats;
+         $numberOfSpotsInTrip = $event->trip->number_of_spots;
          $spotsArray=[];
          if($event->trip->status !== Trip::PENDING){
              return true;
          }
-         for($i=1;$i<=$numberOfSeatsInTrip;$i++){
+         for($i=1;$i<=$numberOfSpotsInTrip;$i++){
              $spotsArray[] = [
                  'spot_number'=>$i,
                  'trip_id'=>$event->trip->id,

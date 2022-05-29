@@ -11,7 +11,7 @@ class RequestFactory{
         switch ($requestName){
             case 'trip':
                 return new TripRequest(
-                    numberOfSeats:$request->number_of_seats,
+                    numberOfSpots:$request->number_of_spots,
                     from:City::where('name',$request->from)->first(),
                     to:City::where('name',$request->to)->first(),
                     price:$request->price,
@@ -20,7 +20,7 @@ class RequestFactory{
                 break;
             case 'spot':
                 return new BookingSpotsRequest(
-                    numberOfSeats:$request->number_of_seats,
+                    numberOfSpots:$request->number_of_spots,
                     trip:Trip::find($request->trip_id),
                     userId:$request->user_id  
                 );
@@ -32,7 +32,7 @@ class RequestFactory{
                 break;
             case 'ticket':
                 return new CancelSpotsRequest(
-                    numberOfSeats:$request->spots_to_cancel,
+                    numberOfSpots:$request->spots_to_cancel,
                     ticket:Ticket::find($request->ticket_id)
                 );
         }

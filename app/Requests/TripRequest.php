@@ -5,7 +5,7 @@ use App\Models\City;
 class TripRequest{
     
     public function __construct(
-    public int $numberOfSeats,
+    public int $numberOfSpots,
     public City $from,
     public City $to,
     public float $price,

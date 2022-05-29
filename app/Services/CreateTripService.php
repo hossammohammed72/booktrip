@@ -10,8 +10,8 @@ class CreateTripService{
     public static function create(TripRequest $request)
     {
         $trip = new Trip();
-        $trip->number_of_seats=$request->numberOfSeats;
-        $trip->remaining_seats=$request->numberOfSeats;
+        $trip->number_of_spots=$request->numberOfSpots;
+        $trip->remaining_spots=$request->numberOfSpots;
         $trip->from_city_id=$request->from->id;
         $trip->to_city_id=$request->to->id;
         $trip->ticket_price=$request->price;
