@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "2c369548-8cb8-4512-85c8-7b0918ba3fbd",
+		"name": "BookTrip",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21072897"
+	},
+	"item": [
+		{
+			"name": "Add Trip",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/trips?number_of_spots=15&from=berlin&to=munich&price=10.2&derparture_time=29-05-22 17:00&arrival_time=30-05-22 17:01",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"trips"
+					],
+					"query": [
+						{
+							"key": "number_of_spots",
+							"value": "15"
+						},
+						{
+							"key": "from",
+							"value": "berlin"
+						},
+						{
+							"key": "to",
+							"value": "munich"
+						},
+						{
+							"key": "price",
+							"value": "10.2"
+						},
+						{
+							"key": "derparture_time",
+							"value": "29-05-22 17:00"
+						},
+						{
+							"key": "arrival_time",
+							"value": "30-05-22 17:01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/ticket/book?number_of_seats=1&trip_id=4&name=ahmed&email=baaaal@caaa",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ticket",
+						"book"
+					],
+					"query": [
+						{
+							"key": "number_of_seats",
+							"value": "1"
+						},
+						{
+							"key": "trip_id",
+							"value": "4"
+						},
+						{
+							"key": "name",
+							"value": "ahmed"
+						},
+						{
+							"key": "email",
+							"value": "baaaal@caaa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "cancel",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/ticket/cancel?spots_to_cancel=1&ticket_id=170000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"ticket",
+						"cancel"
+					],
+					"query": [
+						{
+							"key": "spots_to_cancel",
+							"value": "1"
+						},
+						{
+							"key": "ticket_id",
+							"value": "170000"
+						},
+						{
+							"key": "name",
+							"value": "hossam",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "sss@c",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trip Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/trips/4/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"trips",
+						"4",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trip Details Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/trips/4/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"trips",
+						"4",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
