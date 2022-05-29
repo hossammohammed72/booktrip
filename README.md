@@ -7,16 +7,26 @@ this project uses Lumen framwework for docs please check[ https://lumen.laravel.
 <li> Clone the repo </li>
 <li> copy the .env.example to a .env file </li>
 <li> run </li>
-php artisan key:generate </li>
+```
+ php artisan key:generate
+ ```
 to generate your key</li>
 <li> instal dependecies through</li>
-```composer update```
-```composer dump-autoload```
+```
+composer update
+```
+```
+composer dump-autoload
+```
 <li> create a database with the same name in the .env file</li>
 <li> run database migration and seeds </li>
-```php artisan migrate --seed```
+```
+php artisan migrate --seed
+```
 <li> serve the api </li>
-```php -S localhost:8000 -t public```
+```
+php -S localhost:8000 -t public
+```
 
 database design : 
 
