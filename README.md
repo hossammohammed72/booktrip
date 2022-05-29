@@ -7,9 +7,10 @@ this project uses Lumen framwework for docs please check[ https://lumen.laravel.
 <li> Clone the repo </li>
 <li> copy the .env.example to a .env file </li>
 <li> run </li>
-```
+ ```
  php artisan key:generate
  ```
+    
 to generate your key</li>
 <li> instal dependecies through</li>
 ```
