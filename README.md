@@ -1,6 +1,20 @@
 Simple Booking System
 
-this project uses Lumen framwework for steps to install please check[ https://lumen.laravel.com/docs/9.x ](https://lumen.laravel.com/docs/9.x/installation)
+this project uses Lumen framwework for docs please check[ https://lumen.laravel.com/docs/9.x ](https://lumen.laravel.com/docs/9.x/installation)
+<h1>Installing</h1>
+<h4>
+<ol>
+<li> Clone the repo </li>
+<li> copy the .env.example to a .env file </li>
+<li> run </li>
+php artisan key:generate </li>
+to generate your key</li>
+<li> instal dependecies through</li>
+composer update</li>
+composer dump-autoload</li>
+<li> create a database with the same name in the .env file</li>
+<li> run database migration and seeds </li>
+php artisan migrate --seed</li>
 
 database design : 
 
