@@ -47,9 +47,7 @@ https://github.com/hossammohammed72/booktrip/blob/2fb971fda8e79902ab92f530e4a9ff
 
 </li>
 </ol>
-<h1>
-database design 
-<\h1>
+<h1> Database design </h1>
 
 
 ![Untitled Diagram drawio](https://user-images.githubusercontent.com/20538134/170732642-bc9b3a8a-4ca4-4849-a599-e76c15e7df7d.png)
