@@ -37,9 +37,9 @@ php artisan queue:work
 <ol>
 <li> running the tests ( ps run the seed command after running the test because it removed the data from database after it finishes )  </li>
     
-    ```
+ ```
     vendor/bin/phpunit
-    ``` 
+ ``` 
     
 <li>
 for manual testing import this postman collection in your postman app 
