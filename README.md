@@ -31,6 +31,20 @@ php -S localhost:8000 -t public
 ```
 php artisan queue:work
 ```
+</ol> 
+<hr>
+<h1> Testing </h1> 
+<ol>
+<li> running the tests ( ps run the seed command after running the test because it removed the data from database after it finishes  </li>
+    
+    ```
+    vendor/bin/phpunit
+    ``` 
+    
+<li>
+for manual testing import this postman collection in your postman app 
+
+</li>
 
 database design : 
 
